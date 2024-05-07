@@ -1,28 +1,26 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using WinFormsApp1.Shapes;
+using WindowsFormsApp1;
 
-namespace WindowsFormsApp1.Shapes
+namespace WinFormsApp1.Shapes
 {
-    class CCircle : Shape
+    class CSquare : Shape
     {
         private int x, y;
-        private int radius = 30;
+        private int width, height = 30;
         private Color color;
         bool Selected = false;
 
-        public CCircle()
+        public CSquare()
         {
             this.x = 0;
             this.y = 0;
         }
-        public CCircle(int x, int y)
+        public CSquare(int x, int y)
         {
             this.x = x;
             this.y = y;
@@ -31,15 +29,17 @@ namespace WindowsFormsApp1.Shapes
         public void Draw(PaintEventArgs e)
         {
             Graphics graphic = e.Graphics;
-            graphic.DrawEllipse((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.x - radius, this.y - radius, radius * 2, radius * 2);
+            graphic.DrawRectangle((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.x - this.width / 2, this.y - this.height/ 2, this.width, this.height);
         }
+
         public bool InShape(int x, int y)
         {
-            if ((this.x - x) * (this.x - x) + (this.y - y) * (this.y - y) <= radius * radius)
+            if ((x > this.x - this.width / 2) && (x < this.x + this.width / 2) && (y > this.y - this.height / 2) && (y < this.y + this.height / 2))
                 return true;
             else
                 return false;
         }
+
         public void SetSelect(bool select)
         {
             Selected = select;
@@ -55,33 +55,36 @@ namespace WindowsFormsApp1.Shapes
 
         public void MoveX(int num, int start, int end)
         {
-            if (this.x - this.radius + num < start)
-                this.x = start + this.radius;
-            else if (this.x + this.radius + num > end)
-                this.x = end - this.radius;
+            if (this.x - this.width / 2 + num < start)
+                this.x = start + this.width / 2;
+            else if (this.x + this.width / 2 + num > end)
+                this.x = end - this.width / 2;
             else
                 this.x += num;
         }
         public void MoveY(int num, int start, int end)
         {
-            if (this.y - this.radius + num < start)
-                this.y = start + this.radius;
-            else if (this.y + this.radius + num > end)
-                this.y = end - this.radius;
+            if (this.y - this.height / 2 + num < start)
+                this.y = start + this.height / 2;
+            else if (this.y + this.height / 2 + num > end)
+                this.y = end - this.height / 2;
             else
                 this.y += num;
         }
         public void ChangeSize(int num)
         {
-            if (this.radius + num > 0)
-                this.radius += num;
+            int tmpWidth = this.width + num;
+            int tmpHeight = this.height + num;
+            if (tmpWidth > 0 && tmpHeight > 0)
+            {
+                this.width += num;
+                this.height += num;
+            }
         }
         public void SetColor(Color color)
         {
             if (Selected)
                 this.color = color;
         }
-
-
     }
 }

@@ -48,8 +48,7 @@ namespace WindowsFormsApp1
 
             foreach (var i in Circles)
             {
-                //if (i.IsClicked(e.X-radius, e.Y - radius))
-                if (i.IsClicked(e.X, e.Y))
+                if (i.InShape(e.X, e.Y))
                 {
                     i.ChangeSelect();
                     CircleClickFlag = true;
@@ -63,7 +62,6 @@ namespace WindowsFormsApp1
                 if (IsCtrl == false || CtrlCheckBox.Checked == false)
                     foreach (var i in Circles)
                         i.SetSelect(false);
-                //Circles.Add(new CCircle(e.X-radius, e.Y-radius)); 
                 Circles.Add(new CCircle(e.X, e.Y));
             }
             PictureBox.Invalidate();

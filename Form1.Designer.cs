@@ -31,6 +31,10 @@
             PictureBox = new PictureBox();
             CtrlCheckBox = new CheckBox();
             OverlayCheckBox = new CheckBox();
+            CircleBtn = new Button();
+            SquareBtn = new Button();
+            TriangleBtn = new Button();
+            colorDialog1 = new ColorDialog();
             ((System.ComponentModel.ISupportInitialize)PictureBox).BeginInit();
             SuspendLayout();
             // 
@@ -67,11 +71,41 @@
             OverlayCheckBox.Text = "OVERLAY";
             OverlayCheckBox.UseVisualStyleBackColor = true;
             // 
+            // CircleBtn
+            // 
+            CircleBtn.Location = new Point(281, 30);
+            CircleBtn.Name = "CircleBtn";
+            CircleBtn.Size = new Size(93, 94);
+            CircleBtn.TabIndex = 4;
+            CircleBtn.Text = "Circle";
+            CircleBtn.UseVisualStyleBackColor = true;
+            // 
+            // SquareBtn
+            // 
+            SquareBtn.Location = new Point(380, 30);
+            SquareBtn.Name = "SquareBtn";
+            SquareBtn.Size = new Size(93, 94);
+            SquareBtn.TabIndex = 5;
+            SquareBtn.Text = "Square";
+            SquareBtn.UseVisualStyleBackColor = true;
+            // 
+            // TriangleBtn
+            // 
+            TriangleBtn.Location = new Point(479, 30);
+            TriangleBtn.Name = "TriangleBtn";
+            TriangleBtn.Size = new Size(90, 93);
+            TriangleBtn.TabIndex = 6;
+            TriangleBtn.Text = "Triangle";
+            TriangleBtn.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1228, 1020);
+            Controls.Add(TriangleBtn);
+            Controls.Add(SquareBtn);
+            Controls.Add(CircleBtn);
             Controls.Add(OverlayCheckBox);
             Controls.Add(CtrlCheckBox);
             Controls.Add(PictureBox);
@@ -92,6 +126,10 @@
         private PictureBox PictureBox;
         private CheckBox CtrlCheckBox;
         private CheckBox OverlayCheckBox;
+        private Button CircleBtn;
+        private Button SquareBtn;
+        private Button TriangleBtn;
+        private ColorDialog colorDialog1;
     }
 }
 
