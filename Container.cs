@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WindowsFormsApp1;
 using WindowsFormsApp1.Shapes;
 using WinFormsApp1.Shapes;
 
@@ -16,6 +17,7 @@ namespace WinFormsApp1
         bool IsCtrl = false;
         bool CtrlCheckBoxChecked = false;
         bool OverlayCheckBoxChecked = false;
+        private Color shapesColor = Form1.PenCircleNotSelect.Color;
 
         public void RemoveSelections()
         {
@@ -45,6 +47,7 @@ namespace WinFormsApp1
         }
         public void InShapeContainer(int x, int y, Shape figure)
         {
+            if (figure == null) return;
             bool littleflag = false;
             if (IsCtrl==false ||  CtrlCheckBoxChecked==false) {
                 foreach (var i in shapes)
@@ -106,6 +109,13 @@ namespace WinFormsApp1
         {
             foreach (var i in shapes)
                 i.Draw(e);
+        }
+        public void SetShapesColor(Color color) {
+            //shapesColor = color; 
+            foreach (var i in shapes)
+            {
+                i.SetColor(color);
+            }
         }
     }
 }

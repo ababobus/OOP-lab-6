@@ -14,7 +14,7 @@ namespace WinFormsApp1.Shapes
         private int x, y;
         private int width =60, height = 60;
         private Color color;
-        bool Selected = true;
+        bool Selected = false;
 
         public CTriangle()
         {

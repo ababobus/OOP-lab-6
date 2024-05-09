@@ -83,7 +83,10 @@ namespace WindowsFormsApp1.Shapes
         public void SetColor(Color color)
         {
             if (Selected)
+            {
                 this.color = color;
+            }
+
         }
 
 

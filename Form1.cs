@@ -48,7 +48,7 @@ namespace WindowsFormsApp1
         {
             shapes.DrawShapes(e);
         }
-        
+
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1
                     break;
                 case Keys.S:
                     shapes.MoveY(step, PictureBox.Location.Y, PictureBox.Height);
-                    PictureBox.Invalidate(); 
+                    PictureBox.Invalidate();
                     break;
                 case Keys.W:
                     shapes.MoveY(-step, PictureBox.Location.Y, PictureBox.Height);
@@ -116,7 +116,23 @@ namespace WindowsFormsApp1
             shape = prototypes[2];
         }
 
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            PictureBox.Width = this.Width;
+            PictureBox.Height = this.Height;
+        }//?
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                PictureBox.BackColor = colorDialog1.Color;
+                shapes.SetShapesColor(colorDialog1.Color);
+
+                PictureBox.Invalidate();
+            }
+
+        }
     }
 
 

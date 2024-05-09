@@ -35,15 +35,17 @@
             SquareBtn = new Button();
             TriangleBtn = new Button();
             colorDialog1 = new ColorDialog();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)PictureBox).BeginInit();
             SuspendLayout();
             // 
             // PictureBox
             // 
-            PictureBox.Location = new Point(1, 169);
+            PictureBox.BackColor = Color.LightBlue;
+            PictureBox.Location = new Point(0, 165);
             PictureBox.Margin = new Padding(3, 5, 3, 5);
             PictureBox.Name = "PictureBox";
-            PictureBox.Size = new Size(1224, 851);
+            PictureBox.Size = new Size(810, 319);
             PictureBox.TabIndex = 1;
             PictureBox.TabStop = false;
             PictureBox.Paint += PictureBox_Paint;
@@ -59,7 +61,7 @@
             CtrlCheckBox.TabIndex = 2;
             CtrlCheckBox.Text = "CTRL";
             CtrlCheckBox.UseVisualStyleBackColor = true;
-            CtrlCheckBox.CheckedChanged += new System.EventHandler(CtrlCheckBox_CheckedChanged);
+            CtrlCheckBox.CheckedChanged += CtrlCheckBox_CheckedChanged;
             // 
             // OverlayCheckBox
             // 
@@ -71,8 +73,7 @@
             OverlayCheckBox.TabIndex = 3;
             OverlayCheckBox.Text = "OVERLAY";
             OverlayCheckBox.UseVisualStyleBackColor = true;
-            OverlayCheckBox.CheckedChanged += new System.EventHandler(OverlayCheckBox_CheckedChanged);
-            //OverlayCheckBox.Click += new System.EventHandler(OverlayCheckBox_Click);
+            OverlayCheckBox.CheckedChanged += OverlayCheckBox_CheckedChanged;
             // 
             // CircleBtn
             // 
@@ -82,7 +83,7 @@
             CircleBtn.TabIndex = 4;
             CircleBtn.Text = "Circle";
             CircleBtn.UseVisualStyleBackColor = true;
-            CircleBtn.Click += new System.EventHandler(CircleBtn_Click);
+            CircleBtn.Click += CircleBtn_Click;
             // 
             // SquareBtn
             // 
@@ -92,7 +93,7 @@
             SquareBtn.TabIndex = 5;
             SquareBtn.Text = "Square";
             SquareBtn.UseVisualStyleBackColor = true;
-            SquareBtn.Click += new System.EventHandler(SquareBtn_Click);
+            SquareBtn.Click += SquareBtn_Click;
             // 
             // TriangleBtn
             // 
@@ -102,15 +103,24 @@
             TriangleBtn.TabIndex = 6;
             TriangleBtn.Text = "Triangle";
             TriangleBtn.UseVisualStyleBackColor = true;
-            TriangleBtn.Click += new System.EventHandler(TriangleBtn_Click);
-
-
+            TriangleBtn.Click += TriangleBtn_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(657, 78);
+            button1.Name = "button1";
+            button1.Size = new Size(112, 34);
+            button1.TabIndex = 7;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1228, 1020);
+            ClientSize = new Size(808, 482);
+            Controls.Add(button1);
             Controls.Add(TriangleBtn);
             Controls.Add(SquareBtn);
             Controls.Add(CircleBtn);
@@ -122,8 +132,8 @@
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
+            SizeChanged += Form1_SizeChanged;
             KeyDown += Form1_KeyDown;
-            //KeyUp += Form1_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -138,6 +148,7 @@
         private Button SquareBtn;
         private Button TriangleBtn;
         private ColorDialog colorDialog1;
+        private Button button1;
     }
 }
 
