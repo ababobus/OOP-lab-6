@@ -28,6 +28,10 @@ namespace WindowsFormsApp1.Shapes
             this.y = y;
             Selected = true;
         }
+
+        public Shape DoConstruct() { return new CCircle(); }
+        public void SetX(int x) { this.x = x; }
+        public void SetY(int y) { this.y = y; }
         public void Draw(PaintEventArgs e)
         {
             Graphics graphic = e.Graphics;

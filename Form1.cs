@@ -6,14 +6,22 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WindowsFormsApp1.Shapes;
+using WinFormsApp1.Shapes;
 
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+
+        private readonly List<Shape> prototypes = new List<Shape>() { new CCircle(), new CSquare(), new CTriangle() };
+        Shape shape;
+        // Контейнер, хранящий фигуры и мтоды работы с ними
+        private WinFormsApp1.Container shapes = new WinFormsApp1.Container();
         public Form1()
         {
             InitializeComponent();
@@ -22,8 +30,9 @@ namespace WindowsFormsApp1
         public static readonly Pen PenCircleSelect = new Pen(Brushes.HotPink);
         public static readonly Pen PenCircleNotSelect = new Pen(Brushes.Black);
 
-        //public static readonly int radius = 30;
         bool IsCtrl = false;
+        private const int step = 10;
+        private const int size = 10;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -31,72 +40,84 @@ namespace WindowsFormsApp1
             PenCircleNotSelect.Width = 2;
         }
 
-        List<CCircle> Circles = new List<CCircle>();
-
-
-        private void PictureBox_Paint(object sender, PaintEventArgs e)
-        {
-            foreach (var i in Circles)
-                i.Draw(e);
-        }
         private void PictureBox_MouseClick(object sender, MouseEventArgs e)
         {
-            bool CircleClickFlag = false;
-            if (IsCtrl == false || CtrlCheckBox.Checked == false)
-                foreach (var i in Circles)
-                    i.SetSelect(false);
-
-            foreach (var i in Circles)
-            {
-                if (i.InShape(e.X, e.Y))
-                {
-                    i.ChangeSelect();
-                    CircleClickFlag = true;
-                    if (OverlayCheckBox.Checked == false)
-                        break;
-                }
-            }
-
-            if (CircleClickFlag == false)
-            {
-                if (IsCtrl == false || CtrlCheckBox.Checked == false)
-                    foreach (var i in Circles)
-                        i.SetSelect(false);
-                Circles.Add(new CCircle(e.X, e.Y));
-            }
+            shapes.InShapeContainer(e.X, e.Y, shape);
             PictureBox.Invalidate();
         }
 
-
+        private void PictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            shapes.DrawShapes(e);
+        }
+        
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Delete)
+            switch (e.KeyCode)
             {
-                for (int i = 0; i < Circles.Count(); ++i)
-                {
-                    if (Circles[i].GetSelect())
-                    {
-                        Circles.RemoveAt(i--);
-                    }
-                }
-                if (Circles.Count != 0)
-                    Circles.Last().SetSelect(true);
-
-                PictureBox.Invalidate();
-            }
-            else if (e.Control)
-            {
-                IsCtrl = true;
+                case Keys.Delete:
+                    shapes.RemoveSelections();
+                    PictureBox.Invalidate();
+                    break;
+                case Keys.ControlKey:
+                    shapes.SetCtrl();
+                    break;
+                case Keys.Left:
+                    shapes.MoveX(-step, PictureBox.Location.X, PictureBox.Width);
+                    PictureBox.Invalidate();
+                    break;
+                case Keys.Right:
+                    shapes.MoveX(step, PictureBox.Location.X, PictureBox.Width);
+                    PictureBox.Invalidate();
+                    break;
+                case Keys.Down:
+                    shapes.MoveY(step, PictureBox.Location.Y, PictureBox.Height);
+                    PictureBox.Invalidate(); 
+                    break;
+                case Keys.Up:
+                    shapes.MoveY(-step, PictureBox.Location.Y, PictureBox.Height);
+                    PictureBox.Invalidate();
+                    break;
+                case Keys.OemOpenBrackets:
+                    shapes.ChangeSizeShapes(-size);
+                    PictureBox.Invalidate();
+                    break;
+                case Keys.OemCloseBrackets:
+                    shapes.ChangeSizeShapes(size);
+                    PictureBox.Invalidate();
+                    break;
+                case Keys.Escape:
+                    Close();
+                    break;
             }
         }
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+
+        private void CtrlCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey)
-            {
-                IsCtrl = false;
-            }
+            shapes.SetCtrlCheckBox(CtrlCheckBox.Checked);
         }
+
+        private void OverlayCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            shapes.SetOverlayCheckBox(OverlayCheckBox.Checked); ;
+        }
+
+        private void CircleBtn_Click(object sender, EventArgs e)
+        {
+            shape = prototypes[0];
+        }
+
+        private void SquareBtn_Click(object sender, EventArgs e)
+        {
+            shape = prototypes[1];
+        }
+
+        private void TriangleBtn_Click(object sender, EventArgs e)
+        {
+            shape = prototypes[2];
+        }
+
 
     }
 

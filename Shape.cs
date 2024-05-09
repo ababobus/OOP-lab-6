@@ -8,6 +8,9 @@ namespace WinFormsApp1.Shapes
 {
     interface Shape
     {
+        Shape DoConstruct();
+        public void SetX(int x);
+        public void SetY(int y);
         bool InShape(int x, int y);
         void Draw(PaintEventArgs e);
         void SetSelect(bool select); 

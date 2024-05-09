@@ -59,6 +59,7 @@
             CtrlCheckBox.TabIndex = 2;
             CtrlCheckBox.Text = "CTRL";
             CtrlCheckBox.UseVisualStyleBackColor = true;
+            CtrlCheckBox.CheckedChanged += new System.EventHandler(CtrlCheckBox_CheckedChanged);
             // 
             // OverlayCheckBox
             // 
@@ -70,6 +71,7 @@
             OverlayCheckBox.TabIndex = 3;
             OverlayCheckBox.Text = "OVERLAY";
             OverlayCheckBox.UseVisualStyleBackColor = true;
+            //OverlayCheckBox.Click += new System.EventHandler(OverlayCheckBox_Click);
             // 
             // CircleBtn
             // 
@@ -79,6 +81,7 @@
             CircleBtn.TabIndex = 4;
             CircleBtn.Text = "Circle";
             CircleBtn.UseVisualStyleBackColor = true;
+            CircleBtn.Click += new System.EventHandler(CircleBtn_Click);
             // 
             // SquareBtn
             // 
@@ -88,6 +91,7 @@
             SquareBtn.TabIndex = 5;
             SquareBtn.Text = "Square";
             SquareBtn.UseVisualStyleBackColor = true;
+            SquareBtn.Click += new System.EventHandler(SquareBtn_Click);
             // 
             // TriangleBtn
             // 
@@ -97,6 +101,9 @@
             TriangleBtn.TabIndex = 6;
             TriangleBtn.Text = "Triangle";
             TriangleBtn.UseVisualStyleBackColor = true;
+            TriangleBtn.Click += new System.EventHandler(TriangleBtn_Click);
+
+
             // 
             // Form1
             // 
@@ -115,7 +122,7 @@
             Text = "Form1";
             Load += Form1_Load;
             KeyDown += Form1_KeyDown;
-            KeyUp += Form1_KeyUp;
+            //KeyUp += Form1_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();

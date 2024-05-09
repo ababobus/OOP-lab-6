@@ -3,33 +3,76 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Collections;
-
-
+using System.DirectoryServices;
+using System.Security.Cryptography;
+using System.Drawing;
+using System.Security.Policy;
 
 namespace WinFormsApp1
 {
-    public class Node<T>
+    public class DoublyNode<T>
     {
-        public Node(T data)
+        public DoublyNode(T data)
         {
             Data = data;
         }
         public T Data { get; set; }
-        public Node<T> Prev { get; set; }
-        public Node<T> Next { get; set; }
+        public DoublyNode<T> Prev { get; set; }
+        public DoublyNode<T> Next { get; set; }
     }
-    public class MyList<T> : IEnumerable<T>
-
+    public class DoublyLinkedList<T> : IEnumerable<T>  
     {
-        Node<T> front;
-        Node<T> back;
-        int count;
+        DoublyNode<T> front; 
+        DoublyNode<T> back;
+        DoublyNode<T> current;
+        int count;  
 
-        public void Add(T data)
+        public int GetSize()
         {
-            Node<T> node = new Node<T>(data);
+            return count;
+        }
+
+        public void MoveNext()
+        {
+            if (current != null)
+            {
+                current = current.Next;
+            }
+        }
+        public void MovePrev()
+        {
+            if (current != null)
+            {
+                current=current.Prev;
+            }
+        }
+        public void GetFront()
+        {
+            current = front;
+        }
+
+        public void GetBack()
+        {
+            current = back;
+        }
+        public T GetData()
+        {
+            if (current != null)
+            {
+                return current.Data;
+            }
+            else
+            {
+                throw new Exception("empty list");
+            }
+        }
+
+
+        public void PushBack(T data)
+        {
+            DoublyNode<T> node = new DoublyNode<T>(data);
+
             if (front == null)
                 front = node;
             else
@@ -40,22 +83,52 @@ namespace WinFormsApp1
             back = node;
             count++;
         }
-        public void PushFront(T data)
+
+        public T PopBack()
         {
-            Node<T> node = new Node<T>(data);
-            Node<T> temp = front;
-            node.Next = temp;
-            front = node;
+            T value = back.Data;
             if (count == 0)
-                back = front;
-            else
-                temp.Prev = node;
-            count++;
+            {
+                throw new Exception("empty list");
+            }
+            if (count == 1)
+            {
+                front = null;
+                back = null;
+                count--;
+                return value;
+            }
+            back = back.Prev;
+            back.Next = null;
+            count--;
+            return value;
         }
+
+        public T PopFront()
+        {
+            T value = front.Data;
+            if (count == 0)
+            {
+                throw new Exception("empty list");
+            }
+            if (count == 1)
+            {
+                front = null;
+                back = null;
+                count--;
+                return value;
+            }
+            front = front.Next;
+            front.Prev = null;
+            count--;
+            return value;
+
+        }
+
+        
         public bool Remove(T data)
         {
-            Node<T> current = front;
-            //поиск удаляемого узла
+            DoublyNode<T> current = front;
             while (current != null)
             {
                 if (current.Data.Equals(data))
@@ -66,25 +139,20 @@ namespace WinFormsApp1
             }
             if (current != null)
             {
-                //если узел не последний
                 if (current.Next != null)
                 {
                     current.Next.Prev = current.Prev;
                 }
                 else
                 {
-                    //если последний, переустанавливаем back
                     back = current.Prev;
                 }
-
-                //если узел не первый
                 if (current.Prev != null)
                 {
                     current.Prev.Next = current.Next;
                 }
                 else
                 {
-                    //если первый, переустанавливаем front
                     front = current.Next;
                 }
                 count--;
@@ -92,26 +160,66 @@ namespace WinFormsApp1
             }
             return false;
         }
+        public T RemoveAt(int index)
+        {
+            if (index == 0)
+            {
+                return PopFront();
+            }
+            if (index == count - 1)
+            {
+                return PopBack();
+            }
+            if (index < 0 || index > count)
+            {
+                throw new IndexOutOfRangeException("wrong index");
+            }
+
+            DoublyNode<T> buf = front;
+            for (int i = 0; i < index; i++)
+            {
+                buf = buf.Next;
+            }
+            T value = buf.Data;
+            (buf.Prev).Next = buf.Next;
+            (buf.Next).Prev = buf.Prev;
+
+            count--;
+            return value;
+        }
+
+
+
         public int Count { get { return count; } }
         public bool IsEmpty { get { return count == 0; } }
 
+        public bool EndOfList()
+        {
+            return current == null;
+        }
         public void Clear()
         {
             front = null;
             back = null;
+            current = null;
             count = 0;
         }
 
-        public bool Contains(T data)
+        public T Get(int index)
         {
-            Node<T> current = front;
-            while (current != null)
+            current = front;
+            int c = 0;
+            while (current!=null && c < index)
             {
-                if (current.Data.Equals(data))
-                    return true;
                 current = current.Next;
+                c++;
             }
-            return false;
+            if (current != null)
+            {
+                return current.Data;
+            }
+            throw new IndexOutOfRangeException();
+
         }
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -120,7 +228,7 @@ namespace WinFormsApp1
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            Node<T> current = front;
+            DoublyNode<T> current = front;
             while (current != null)
             {
                 yield return current.Data;
@@ -130,7 +238,7 @@ namespace WinFormsApp1
 
         public IEnumerable<T> BackEnumerator()
         {
-            Node<T> current = back;
+            DoublyNode<T> current = back;
             while (current != null)
             {
                 yield return current.Data;

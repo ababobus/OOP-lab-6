@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WindowsFormsApp1;
+using WindowsFormsApp1.Shapes;
 
 namespace WinFormsApp1.Shapes
 {
@@ -39,6 +40,10 @@ namespace WinFormsApp1.Shapes
             Point c = new Point(this.x + this.width / 2, this.y + this.height / 2);
             this.vertex[2] = c;
         }
+
+        public Shape DoConstruct() { return new CTriangle(); }
+        public void SetX(int x) { this.x = x; }
+        public void SetY(int y) { this.y = y; }
 
         public void Draw(PaintEventArgs e)
         {
