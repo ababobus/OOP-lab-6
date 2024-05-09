@@ -71,6 +71,7 @@
             OverlayCheckBox.TabIndex = 3;
             OverlayCheckBox.Text = "OVERLAY";
             OverlayCheckBox.UseVisualStyleBackColor = true;
+            OverlayCheckBox.CheckedChanged += new System.EventHandler(OverlayCheckBox_CheckedChanged);
             //OverlayCheckBox.Click += new System.EventHandler(OverlayCheckBox_Click);
             // 
             // CircleBtn

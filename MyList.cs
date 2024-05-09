@@ -72,15 +72,19 @@ namespace WinFormsApp1
         public void PushBack(T data)
         {
             DoublyNode<T> node = new DoublyNode<T>(data);
+            node.Prev = back;
+            node.Next = null;
 
-            if (front == null)
-                front = node;
-            else
+            if (count != 0)
             {
                 back.Next = node;
-                node.Prev = back;
+                back = node;
             }
-            back = node;
+            else
+            {
+                front = node;
+                back = node;
+            }
             count++;
         }
 

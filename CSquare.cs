@@ -12,7 +12,7 @@ namespace WinFormsApp1.Shapes
     class CSquare : Shape
     {
         private int x, y;
-        private int width, height = 30;
+        private int width =60, height = 60;
         private Color color;
         bool Selected = false;
 

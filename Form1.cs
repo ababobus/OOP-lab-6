@@ -20,7 +20,6 @@ namespace WindowsFormsApp1
 
         private readonly List<Shape> prototypes = new List<Shape>() { new CCircle(), new CSquare(), new CTriangle() };
         Shape shape;
-        // Контейнер, хранящий фигуры и мтоды работы с ними
         private WinFormsApp1.Container shapes = new WinFormsApp1.Container();
         public Form1()
         {
@@ -30,7 +29,6 @@ namespace WindowsFormsApp1
         public static readonly Pen PenCircleSelect = new Pen(Brushes.HotPink);
         public static readonly Pen PenCircleNotSelect = new Pen(Brushes.Black);
 
-        bool IsCtrl = false;
         private const int step = 10;
         private const int size = 10;
 
@@ -43,7 +41,7 @@ namespace WindowsFormsApp1
         private void PictureBox_MouseClick(object sender, MouseEventArgs e)
         {
             shapes.InShapeContainer(e.X, e.Y, shape);
-            PictureBox.Invalidate();
+            PictureBox.Refresh();
         }
 
         private void PictureBox_Paint(object sender, PaintEventArgs e)
@@ -62,19 +60,19 @@ namespace WindowsFormsApp1
                 case Keys.ControlKey:
                     shapes.SetCtrl();
                     break;
-                case Keys.Left:
+                case Keys.A:
                     shapes.MoveX(-step, PictureBox.Location.X, PictureBox.Width);
                     PictureBox.Invalidate();
                     break;
-                case Keys.Right:
+                case Keys.D:
                     shapes.MoveX(step, PictureBox.Location.X, PictureBox.Width);
                     PictureBox.Invalidate();
                     break;
-                case Keys.Down:
+                case Keys.S:
                     shapes.MoveY(step, PictureBox.Location.Y, PictureBox.Height);
                     PictureBox.Invalidate(); 
                     break;
-                case Keys.Up:
+                case Keys.W:
                     shapes.MoveY(-step, PictureBox.Location.Y, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;

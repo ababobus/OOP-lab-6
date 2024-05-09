@@ -54,10 +54,14 @@ namespace WinFormsApp1
             }
             foreach (var i in shapes)
             {
-                i.ChangeSelect();
-                littleflag = true;
-                if (OverlayCheckBoxChecked == false){
-                    break;
+                if (i.InShape(x, y))
+                {
+                    i.ChangeSelect();
+                    littleflag = true;
+                    if (OverlayCheckBoxChecked == false)
+                    {
+                        break;
+                    }
                 }
             }
             if (littleflag == false)
@@ -65,9 +69,12 @@ namespace WinFormsApp1
                 if (IsCtrl == false || CtrlCheckBoxChecked == false)
                     foreach (var i in shapes)
                         i.SetSelect(false);
-                figure.SetX(x);
-                figure.SetY(y);
-                shapes.PushBack(figure);
+                Shape newshape = figure.DoConstruct();
+
+                newshape.SetX(x);
+                newshape.SetY(y);
+                newshape.SetSelect(true);
+                shapes.PushBack(newshape);
             }
         }
 
