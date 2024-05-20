@@ -76,6 +76,7 @@ namespace WinFormsApp1
 
                 newshape.SetX(x);
                 newshape.SetY(y);
+                
                 newshape.SetSelect(true);
                 shapes.PushBack(newshape);
             }
@@ -98,11 +99,11 @@ namespace WinFormsApp1
                     it.MoveY(num, start, end);
             }
         }
-        public void ChangeSizeShapes(int num)
+        public void ChangeSizeShapes(int num, int width, int height)
         {
             foreach (Shape it in shapes)
                 if (it.GetSelect())
-                    it.ChangeSize(num);
+                    it.ChangeSize(num, width, height);
         }
 
         public void DrawShapes(PaintEventArgs e)

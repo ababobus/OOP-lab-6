@@ -77,11 +77,11 @@ namespace WindowsFormsApp1
                     PictureBox.Invalidate();
                     break;
                 case Keys.OemOpenBrackets:
-                    shapes.ChangeSizeShapes(-size);
+                    shapes.ChangeSizeShapes(-size, PictureBox.Width, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;
                 case Keys.OemCloseBrackets:
-                    shapes.ChangeSizeShapes(size);
+                    shapes.ChangeSizeShapes(size, PictureBox.Width, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;
                 case Keys.Escape:
@@ -118,8 +118,8 @@ namespace WindowsFormsApp1
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            PictureBox.Width = this.Width;
-            PictureBox.Height = this.Height;
+//            PictureBox.Width = this.Width;
+//            PictureBox.Height = this.Height - PictureBox.Location.Y;
         }//?
 
         private void button1_Click(object sender, EventArgs e)

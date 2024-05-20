@@ -82,29 +82,29 @@ namespace WinFormsApp1.Shapes
         public void MoveX(int num, int start, int end)
         {
             GetVertex();
-            if (this.vertex[0].X + num < start)
+            if (this.vertex[0].X + num <= start)
                 this.x = start + this.width / 2;
             else if (this.vertex[2].X + num > end)
-                this.x = end - this.width / 2;
+                this.x = end - 1 - this.width / 2;
             else
                 this.x += num;
         }
         public void MoveY(int num, int start, int end)
         {
             GetVertex();
-            if (this.vertex[1].Y + num < start)
-                this.y = start + this.height / 2;
+            if (this.vertex[1].Y + num < 0)
+                this.y = 0 + this.height / 2;
             else if (this.vertex[0].Y + num > end || this.vertex[2].Y + num > end)
-                this.y = end - this.height / 2;
+                this.y = end - 1 - this.height / 2;
             else
                 this.y += num;
         }
-        public void ChangeSize(int num)
+        public void ChangeSize(int num, int width, int height)
         {
-            if (this.width + num > 0 && this.height + num > 0)
+            if (this.x - this.width / 2 - num > 0 && this.y - this.height / 2 - num > 0 && this.x + this.width / 2 + num < width && this.y + this.height / 2 + num < height && this.width / 2 + num > 0 && this.height / 2 + num > 0)
             {
-                this.width = this.width + num;
-                this.height = this.height + num;
+                this.width += num;
+                this.height += num;
             }
         }
         public void SetColor(Color color)

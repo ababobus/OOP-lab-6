@@ -62,22 +62,22 @@ namespace WindowsFormsApp1.Shapes
             if (this.x - this.radius + num < start)
                 this.x = start + this.radius;
             else if (this.x + this.radius + num > end)
-                this.x = end - this.radius;
+                this.x = end - 1 - this.radius;
             else
                 this.x += num;
         }
         public void MoveY(int num, int start, int end)
         {
-            if (this.y - this.radius + num < start)
-                this.y = start + this.radius;
+            if (this.y - this.radius + num < 0)
+                this.y = this.radius;
             else if (this.y + this.radius + num > end)
-                this.y = end - this.radius;
+                this.y = end - 1 - this.radius;
             else
                 this.y += num;
         }
-        public void ChangeSize(int num)
+        public void ChangeSize(int num, int width, int height)
         {
-            if (this.radius + num > 0)
+            if (this.x - this.radius - num > 0 && this.y - this.radius - num>0 && this.x+this.radius+num < width && this.y+ this.radius +num<height && this.radius+num>0)
                 this.radius += num;
         }
         public void SetColor(Color color)

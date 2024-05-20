@@ -12,7 +12,7 @@ namespace WinFormsApp1.Shapes
     class CSquare : Shape
     {
         private int x, y;
-        private int width =60, height = 60;
+        private int width = 60, height = 60;
         private Color color;
         bool Selected = false;
 
@@ -63,24 +63,22 @@ namespace WinFormsApp1.Shapes
             if (this.x - this.width / 2 + num < start)
                 this.x = start + this.width / 2;
             else if (this.x + this.width / 2 + num > end)
-                this.x = end - this.width / 2;
+                this.x = end - 1 - this.width / 2;
             else
                 this.x += num;
         }
         public void MoveY(int num, int start, int end)
         {
-            if (this.y - this.height / 2 + num < start)
-                this.y = start + this.height / 2;
+            if (this.y - this.height / 2 + num <= 0)
+                this.y = this.height / 2 + 1;
             else if (this.y + this.height / 2 + num > end)
-                this.y = end - this.height / 2;
+                this.y = end - 1 - this.height / 2;
             else
                 this.y += num;
         }
-        public void ChangeSize(int num)
+        public void ChangeSize(int num, int width, int height)
         {
-            int tmpWidth = this.width + num;
-            int tmpHeight = this.height + num;
-            if (tmpWidth > 0 && tmpHeight > 0)
+            if (this.x - this.width/2 - num>0 && this.y - this.height/2 - num > 0 && this.x + this.width/2 + num < width && this.y + this.height/2 + num < height && this.width/2 + num > 0 && this.height/2 +num>0)
             {
                 this.width += num;
                 this.height += num;

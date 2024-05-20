@@ -45,7 +45,7 @@
             PictureBox.Location = new Point(0, 165);
             PictureBox.Margin = new Padding(3, 5, 3, 5);
             PictureBox.Name = "PictureBox";
-            PictureBox.Size = new Size(810, 319);
+            PictureBox.Size = new Size(810, 318);
             PictureBox.TabIndex = 1;
             PictureBox.TabStop = false;
             PictureBox.Paint += PictureBox_Paint;

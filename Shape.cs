@@ -18,7 +18,7 @@ namespace WinFormsApp1.Shapes
         void ChangeSelect();
         void MoveX(int num, int start, int end);
         void MoveY(int num, int start, int end);
-        void ChangeSize(int num);
+        void ChangeSize(int num, int width, int height);
         void SetColor(Color color);
     }
 }
