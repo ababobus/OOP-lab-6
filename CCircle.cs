@@ -80,7 +80,7 @@ namespace WindowsFormsApp1.Shapes
         }
         public void ChangeSize(int num, int width, int height)
         {
-            if (this.x - this.radius - num > 0 && this.y - this.radius - num>0 && this.x+this.radius+num < width && this.y+ this.radius +num<height && this.radius+num>0)
+            if (this.x - this.radius - num > 0 && this.y - this.radius - num > 0 && this.x + this.radius + num < width && this.y + this.radius + num < height && this.radius + num > 0)
                 this.radius += num;
         }
         public void SetColor(Color color)

@@ -132,10 +132,11 @@
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
-            SizeChanged += Form1_SizeChanged;
+            
             KeyDown += Form1_KeyDown;
             ((System.ComponentModel.ISupportInitialize)PictureBox).EndInit();
             ResumeLayout(false);
+            Resize += Form1_Resize;
             PerformLayout();
         }
 

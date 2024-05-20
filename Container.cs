@@ -14,7 +14,7 @@ namespace WinFormsApp1
     {
         DoublyLinkedList<Shape> shapes = new DoublyLinkedList<Shape>();
 
-        bool IsCtrl = false;
+
         bool CtrlCheckBoxChecked = false;
         bool OverlayCheckBoxChecked = false;
         private Color shapesColor = Form1.PenCircleNotSelect.Color;
@@ -32,11 +32,6 @@ namespace WinFormsApp1
                 shapes.Last().SetSelect(true);
         }
 
-        public void SetCtrl()
-        {
-            IsCtrl = true;
-        }
-
         public void SetCtrlCheckBox(bool flag)
         {
             CtrlCheckBoxChecked = flag;
@@ -48,18 +43,19 @@ namespace WinFormsApp1
         public void InShapeContainer(int x, int y, Shape figure)
         {
             if (figure == null) return;
-            bool littleflag = false;
-            if (IsCtrl==false ||  CtrlCheckBoxChecked==false) {
+            
+            if (CtrlCheckBoxChecked == false) {
                 foreach (var i in shapes)
                 {
                     i.SetSelect(false);
                 }
             }
+            bool littleflag = false;
             foreach (var i in shapes)
             {
                 if (i.InShape(x, y))
                 {
-                    i.ChangeSelect();
+                    i.SetSelect(true);
                     littleflag = true;
                     if (OverlayCheckBoxChecked == false)
                     {
@@ -69,9 +65,6 @@ namespace WinFormsApp1
             }
             if (littleflag == false)
             {
-                if (IsCtrl == false || CtrlCheckBoxChecked == false)
-                    foreach (var i in shapes)
-                        i.SetSelect(false);
                 Shape newshape = figure.DoConstruct();
 
                 newshape.SetX(x);

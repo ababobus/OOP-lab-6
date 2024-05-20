@@ -58,7 +58,9 @@ namespace WindowsFormsApp1
                     PictureBox.Invalidate();
                     break;
                 case Keys.ControlKey:
-                    shapes.SetCtrl();
+                    //                    shapes.SetCtrl(CtrlCheckBox.Checked);
+                    CtrlCheckBox.Checked = !CtrlCheckBox.Checked;
+                    shapes.SetCtrlCheckBox(CtrlCheckBox.Checked);
                     break;
                 case Keys.A:
                     shapes.MoveX(-step, PictureBox.Location.X, PictureBox.Width);
@@ -116,12 +118,6 @@ namespace WindowsFormsApp1
             shape = prototypes[2];
         }
 
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-//            PictureBox.Width = this.Width;
-//            PictureBox.Height = this.Height - PictureBox.Location.Y;
-        }//?
-
         private void button1_Click(object sender, EventArgs e)
         {
             if (colorDialog1.ShowDialog() != DialogResult.Cancel)
@@ -132,6 +128,12 @@ namespace WindowsFormsApp1
                 PictureBox.Invalidate();
             }
 
+        }
+
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            PictureBox.Width = this.ClientSize.Width;
+            PictureBox.Height = this.ClientSize.Height - PictureBox.Location.Y;
         }
     }
 
