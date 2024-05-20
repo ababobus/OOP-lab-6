@@ -108,14 +108,16 @@ namespace WinFormsApp1
 
         public void DrawShapes(PaintEventArgs e)
         {
-            foreach (var i in shapes)
-                i.Draw(e);
+            foreach (Shape it in shapes)
+                it.Draw(e);
         }
         public void SetShapesColor(Color color) {
-            //shapesColor = color; 
-            foreach (var i in shapes)
+            foreach (Shape it in shapes)
             {
-                i.SetColor(color);
+                if (it.GetSelect())
+                {
+                    it.SetColor(color);
+                }
             }
         }
     }

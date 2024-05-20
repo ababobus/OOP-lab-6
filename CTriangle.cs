@@ -26,6 +26,7 @@ namespace WinFormsApp1.Shapes
             this.x = x;
             this.y = y;
             Selected = true;
+            this.color = Color.LightBlue;
         }
         private Point[] vertex = new Point[3];
         private void GetVertex()
@@ -47,9 +48,11 @@ namespace WinFormsApp1.Shapes
 
         public void Draw(PaintEventArgs e)
         {
-            Graphics graphic = e.Graphics;
+            Brush brush = new SolidBrush(this.color);   
             GetVertex();
+            Graphics graphic = e.Graphics;
             graphic.DrawPolygon((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.vertex);
+            graphic.FillPolygon(brush, this.vertex);
         }
 
         public bool InShape(int x, int y)

@@ -26,7 +26,7 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
-        public static readonly Pen PenCircleSelect = new Pen(Brushes.HotPink);
+        public static readonly Pen PenCircleSelect = new Pen(Brushes.Yellow);
         public static readonly Pen PenCircleNotSelect = new Pen(Brushes.Black);
 
         private const int step = 10;
@@ -34,8 +34,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PenCircleSelect.Width = 2;
-            PenCircleNotSelect.Width = 2;
+            PenCircleSelect.Width = 3;
+            PenCircleNotSelect.Width = 3;
         }
 
         private void PictureBox_MouseClick(object sender, MouseEventArgs e)
@@ -126,7 +126,7 @@ namespace WindowsFormsApp1
         {
             if (colorDialog1.ShowDialog() != DialogResult.Cancel)
             {
-                PictureBox.BackColor = colorDialog1.Color;
+                //PictureBox.BackColor = colorDialog1.Color;
                 shapes.SetShapesColor(colorDialog1.Color);
 
                 PictureBox.Invalidate();

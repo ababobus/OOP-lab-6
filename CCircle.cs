@@ -27,6 +27,7 @@ namespace WindowsFormsApp1.Shapes
             this.x = x;
             this.y = y;
             Selected = true;
+            this.color = Color.LightBlue;
         }
 
         public Shape DoConstruct() { return new CCircle(); }
@@ -34,8 +35,10 @@ namespace WindowsFormsApp1.Shapes
         public void SetY(int y) { this.y = y; }
         public void Draw(PaintEventArgs e)
         {
+            Brush brush = new SolidBrush(this.color);
             Graphics graphic = e.Graphics;
             graphic.DrawEllipse((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.x - radius, this.y - radius, radius * 2, radius * 2);
+            graphic.FillEllipse(brush, this.x - radius, this.y - radius, radius * 2, radius * 2);
         }
         public bool InShape(int x, int y)
         {
@@ -85,6 +88,7 @@ namespace WindowsFormsApp1.Shapes
             if (Selected)
             {
                 this.color = color;
+
             }
 
         }

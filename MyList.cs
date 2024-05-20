@@ -192,8 +192,6 @@ namespace WinFormsApp1
             return value;
         }
 
-
-
         public int Count { get { return count; } }
         public bool IsEmpty { get { return count == 0; } }
 

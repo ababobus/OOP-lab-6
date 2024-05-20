@@ -26,6 +26,7 @@ namespace WinFormsApp1.Shapes
             this.x = x;
             this.y = y;
             Selected = true;
+            this.color = Color.LightBlue;
         }
 
         public Shape DoConstruct() { return new CSquare(); }
@@ -33,8 +34,10 @@ namespace WinFormsApp1.Shapes
         public void SetY(int y) { this.y = y; }
         public void Draw(PaintEventArgs e)
         {
+            Brush brush= new SolidBrush(this.color);
             Graphics graphic = e.Graphics;
             graphic.DrawRectangle((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.x - this.width / 2, this.y - this.height/ 2, this.width, this.height);
+            graphic.FillRectangle(brush, this.x - this.width / 2, this.y - this.height / 2, this.width, this.height);
         }
 
         public bool InShape(int x, int y)
