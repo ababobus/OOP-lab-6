@@ -21,17 +21,16 @@ namespace WinFormsApp1.Shapes
             this.x = 0;
             this.y = 0;
         }
-        public CSquare(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-            Selected = true;
-            this.color = Color.LightBlue;
-        }
 
-        public Shape DoConstruct() { return new CSquare(); }
-        public void SetX(int x) { this.x = x; }
-        public void SetY(int y) { this.y = y; }
+        public Shape DoConstruct() { 
+            return new CSquare(); 
+        }
+        public void SetX(int x) { 
+            this.x = x; 
+        }
+        public void SetY(int y) { 
+            this.y = y; 
+        }
         public void Draw(PaintEventArgs e)
         {
             Brush brush= new SolidBrush(this.color);
@@ -61,27 +60,51 @@ namespace WinFormsApp1.Shapes
             return Selected;
         }
 
-        public void MoveX(int num, int start, int end)
+        public bool Movable(string s, int num, int end)
         {
-            if (this.x - this.width / 2 + num < start)
-                this.x = start + this.width / 2;
-            else if (this.x + this.width / 2 + num > end)
-                this.x = end - 1 - this.width / 2;
+            if (s == "left")
+            {
+                return (this.x - this.width / 2 + num > 0);
+            }
+            if (s == "right")
+            {
+                return (this.x + this.width / 2 + num < end);
+            }
+            if (s == "up")
+            {
+                return (this.y - this.height / 2 + num > 0);
+            }
+            if (s == "down")
+            {
+                return (this.y + this.height / 2 + num < end);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void MoveX(string s, int num, int end)
+        {
+            if (s == "left" && !Movable(s, num, end))
+                this.x = this.width / 2;
+            else if (s == "right" && !Movable(s, num, end))
+                this.x = end - this.width / 2;
             else
                 this.x += num;
         }
-        public void MoveY(int num, int start, int end)
+        public void MoveY(string s, int num, int end)
         {
-            if (this.y - this.height / 2 + num <= 0)
+            if (s == "up" && !Movable(s, num, end))
                 this.y = this.height / 2 + 1;
-            else if (this.y + this.height / 2 + num > end)
-                this.y = end - 1 - this.height / 2;
+            else if (s == "down" && !Movable(s, num, end))
+                this.y = end - this.height / 2;
             else
                 this.y += num;
         }
         public void ChangeSize(int num, int width, int height)
         {
-            if (this.x - this.width/2 - num>0 && this.y - this.height/2 - num > 0 && this.x + this.width/2 + num < width && this.y + this.height/2 + num < height && this.width/2 + num > 0 && this.height/2 +num>0)
+            if (Movable("left", -num, 0) && Movable("up", -num, 0) && Movable("right", num, width) && Movable("down", num, height) && this.width/2 + num > 0 && this.height/2 +num>0)
             {
                 this.width += num;
                 this.height += num;

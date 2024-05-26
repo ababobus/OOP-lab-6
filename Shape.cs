@@ -16,8 +16,10 @@ namespace WinFormsApp1.Shapes
         void SetSelect(bool select); 
         bool GetSelect();
         void ChangeSelect();
-        void MoveX(int num, int start, int end);
-        void MoveY(int num, int start, int end);
+
+        bool Movable(string s, int num, int end);
+        void MoveX(string s, int num, int end);
+        void MoveY(string s, int num, int end);
         void ChangeSize(int num, int width, int height);
         void SetColor(Color color);
     }

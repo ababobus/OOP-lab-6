@@ -75,31 +75,47 @@ namespace WinFormsApp1
             }
         }
 
-
-        public void MoveX(int num, int start, int end)
+        public void Move(string s, int num, int end)
         {
             foreach (Shape it in shapes)
             {
                 if (it.GetSelect())
-                    it.MoveX(num, start, end);
+                {
+                    if (s == "left" || s == "right")
+                    {
+                        it.MoveX(s, num, end);
+                    }
+                    if (s == "up" || s == "down")
+                    {
+                        it.MoveY(s, num, end);
+                    }
+                }
             }
         }
-        public void MoveY(int num, int start, int end)
-        {
-            foreach (Shape it in shapes)
-            {
-                if (it.GetSelect())
-                    it.MoveY(num, start, end);
-            }
-        }
-        public void ChangeSizeShapes(int num, int width, int height)
-        {
-            foreach (Shape it in shapes)
-                if (it.GetSelect())
-                    it.ChangeSize(num, width, height);
-        }
+        //public void MoveX(int num, int start, int end)
+        //{
+        //    foreach (Shape it in shapes)
+        //    {
+        //        if (it.GetSelect())
+        //            it.MoveX(num, start, end);
+        //    }
+        //}
+        //public void MoveY(int num, int start, int end)
+        //{
+        //    foreach (Shape it in shapes)
+        //    {
+        //        if (it.GetSelect())
+        //            it.MoveY(num, start, end);
+        //    }
+    //}
+    public void ChangeSizeShapes(int num, int width, int height)
+    {
+        foreach (Shape it in shapes)
+            if (it.GetSelect())
+                it.ChangeSize(num, width, height);
+    }
 
-        public void DrawShapes(PaintEventArgs e)
+    public void DrawShapes(PaintEventArgs e)
         {
             foreach (Shape it in shapes)
                 it.Draw(e);

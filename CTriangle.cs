@@ -21,18 +21,10 @@ namespace WinFormsApp1.Shapes
             this.x = 0;
             this.y = 0;
         }
-        public CTriangle(int x, int y)
-        {
-            this.x = x;
-            this.y = y;
-            Selected = true;
-            this.color = Color.LightBlue;
-        }
         private Point[] vertex = new Point[3];
         private void GetVertex()
         {
-            //левая вершина
-            Point a = new Point(this.x - this.width / 2, this.y + this.height / 2);
+            Point a = new Point(this.x - this.width / 2, this.y + this.height / 2); //левая нижняя вершна
             this.vertex[0] = a;
             //верх
             Point b = new Point(this.x, this.y - this.height / 2);
@@ -42,9 +34,15 @@ namespace WinFormsApp1.Shapes
             this.vertex[2] = c;
         }
 
-        public Shape DoConstruct() { return new CTriangle(); }
-        public void SetX(int x) { this.x = x; }
-        public void SetY(int y) { this.y = y; }
+        public Shape DoConstruct() { 
+            return new CTriangle(); 
+        }
+        public void SetX(int x) { 
+            this.x = x; 
+        }
+        public void SetY(int y) { 
+            this.y = y; 
+        }
 
         public void Draw(PaintEventArgs e)
         {
@@ -82,29 +80,55 @@ namespace WinFormsApp1.Shapes
             return Selected;
         }
 
-        public void MoveX(int num, int start, int end)
+
+        public bool Movable(string s, int num, int end)
+        {
+            if (s == "left")
+            {
+                return (this.vertex[0].X + num > 0);
+            }
+            if (s == "right")
+            {
+                return (this.vertex[2].X + num < end);
+            }
+            if (s == "up")
+            {
+                return (this.vertex[1].Y + num > 0);
+            }
+            if (s == "down")
+            {
+                return (this.vertex[0].Y + num < end && this.vertex[2].Y + num < end);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        public void MoveX(string s, int num, int end)
         {
             GetVertex();
-            if (this.vertex[0].X + num <= start)
-                this.x = start + this.width / 2;
-            else if (this.vertex[2].X + num > end)
-                this.x = end - 1 - this.width / 2;
+            if (s == "left" && !Movable(s, num, end))
+                this.x = this.width / 2;
+            else if (s == "right" && !Movable(s, num, end))
+                this.x = end - this.width / 2;
             else
                 this.x += num;
         }
-        public void MoveY(int num, int start, int end)
+        public void MoveY(string s, int num, int end)
         {
             GetVertex();
-            if (this.vertex[1].Y + num < 0)
+            if (s == "up" && !Movable(s, num, end))
                 this.y = 0 + this.height / 2;
-            else if (this.vertex[0].Y + num > end || this.vertex[2].Y + num > end)
+            else if (s == "down" && !Movable(s, num, end))
                 this.y = end - 1 - this.height / 2;
             else
                 this.y += num;
         }
         public void ChangeSize(int num, int width, int height)
         {
-            if (this.x - this.width / 2 - num > 0 && this.y - this.height / 2 - num > 0 && this.x + this.width / 2 + num < width && this.y + this.height / 2 + num < height && this.width / 2 + num > 0 && this.height / 2 + num > 0)
+            if (Movable("left", -num, 0) && Movable("up", -num, 0) && Movable("right", num, width) && Movable("down", num, height) && this.width / 2 + num > 0 && this.height / 2 + num > 0)
             {
                 this.width += num;
                 this.height += num;
