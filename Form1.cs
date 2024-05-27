@@ -18,8 +18,8 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
 
-        private readonly List<Shape> prototypes = new List<Shape>() { new CCircle(), new CSquare(), new CTriangle() };
-        Shape shape;
+        private readonly List<ShapeParent> prototypes = new List<ShapeParent>() { new CCircle(), new CSquare(), new CTriangle() };
+        ShapeParent shape;
         private WinFormsApp1.Container shapes = new WinFormsApp1.Container();
         public Form1()
         {
@@ -30,7 +30,6 @@ namespace WindowsFormsApp1
         public static readonly Pen PenCircleNotSelect = new Pen(Brushes.Black);
 
         private const int step = 10;
-        private const int size = 10;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -67,26 +66,23 @@ namespace WindowsFormsApp1
                     PictureBox.Invalidate();
                     break;
                 case Keys.D:
-                    //shapes.MoveX(step, 0, PictureBox.Width);
                     shapes.Move("right", step, PictureBox.Width);
                     PictureBox.Invalidate();
                     break;
                 case Keys.S:
-                    //shapes.MoveY(step, 165, PictureBox.Height);
                     shapes.Move("down", step, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;
                 case Keys.W:
-                    //shapes.MoveY(-step, 165, PictureBox.Height);
                     shapes.Move("up", -step, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;
                 case Keys.OemOpenBrackets:
-                    shapes.ChangeSizeShapes(-size, PictureBox.Width, PictureBox.Height);
+                    shapes.ChangeSizeShapes(-step, PictureBox.Width, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;
                 case Keys.OemCloseBrackets:
-                    shapes.ChangeSizeShapes(size, PictureBox.Width, PictureBox.Height);
+                    shapes.ChangeSizeShapes(step, PictureBox.Width, PictureBox.Height);
                     PictureBox.Invalidate();
                     break;
                 case Keys.Escape:

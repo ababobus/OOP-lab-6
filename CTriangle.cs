@@ -8,19 +8,11 @@ using WindowsFormsApp1.Shapes;
 
 namespace WinFormsApp1.Shapes
 {
-    class CTriangle : Shape
+    class CTriangle : ShapeParent
 
     {
-        private int x, y;
-        private int width =60, height = 60;
-        private Color color;
-        bool Selected = false;
+        private int width = 60, height = 60;
 
-        public CTriangle()
-        {
-            this.x = 0;
-            this.y = 0;
-        }
         private Point[] vertex = new Point[3];
         private void GetVertex()
         {
@@ -34,54 +26,33 @@ namespace WinFormsApp1.Shapes
             this.vertex[2] = c;
         }
 
-        public Shape DoConstruct() { 
-            return new CTriangle(); 
-        }
-        public void SetX(int x) { 
-            this.x = x; 
-        }
-        public void SetY(int y) { 
-            this.y = y; 
-        }
-
-        public void Draw(PaintEventArgs e)
+        public override ShapeParent DoConstruct()
         {
-            Brush brush = new SolidBrush(this.color);   
-            GetVertex();
-            Graphics graphic = e.Graphics;
-            graphic.DrawPolygon((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.vertex);
-            graphic.FillPolygon(brush, this.vertex);
+            return new CTriangle();
         }
 
-        public bool InShape(int x, int y)
+        public override void Draw(PaintEventArgs e)
+        {
+            GetVertex();
+            e.Graphics.DrawPolygon((Selected ? Form1.PenCircleSelect : Form1.PenCircleNotSelect), this.vertex);
+            e.Graphics.FillPolygon(new SolidBrush(color), this.vertex);
+        }
+
+        public override bool InShape(int x, int y)
         {
             bool flag = false;
             GetVertex();
-            
+
             int a = (this.vertex[0].X - x) * (this.vertex[1].Y - this.vertex[0].Y) - (this.vertex[1].X - this.vertex[0].X) * (this.vertex[0].Y - y);
             int b = (this.vertex[1].X - x) * (this.vertex[2].Y - this.vertex[1].Y) - (this.vertex[2].X - this.vertex[1].X) * (this.vertex[1].Y - y);
             int c = (this.vertex[2].X - x) * (this.vertex[0].Y - this.vertex[2].Y) - (this.vertex[0].X - this.vertex[2].X) * (this.vertex[2].Y - y);
-            
+
             if ((a >= 0 && b >= 0 && c >= 0) || (a <= 0 && b <= 0 && c <= 0))
                 flag = true;
             return flag;
         }
 
-        public void SetSelect(bool select)
-        {
-            Selected = select;
-        }
-        public void ChangeSelect()
-        {
-            Selected = !Selected;
-        }
-        public bool GetSelect()
-        {
-            return Selected;
-        }
-
-
-        public bool Movable(string s, int num, int end)
+        public override bool Movable(string s, int num, int end)
         {
             if (s == "left")
             {
@@ -106,38 +77,33 @@ namespace WinFormsApp1.Shapes
         }
 
 
-        public void MoveX(string s, int num, int end)
+        public override void MoveX(string s, int num, int end)
         {
             GetVertex();
             if (s == "left" && !Movable(s, num, end))
-                this.x = this.width / 2;
+                this.x = this.width / 2 + 1;
             else if (s == "right" && !Movable(s, num, end))
-                this.x = end - this.width / 2;
+                this.x = end - this.width / 2 - 3;
             else
                 this.x += num;
         }
-        public void MoveY(string s, int num, int end)
+        public override void MoveY(string s, int num, int end)
         {
             GetVertex();
             if (s == "up" && !Movable(s, num, end))
-                this.y = 0 + this.height / 2;
+                this.y = 0 + this.height / 2 + 1;
             else if (s == "down" && !Movable(s, num, end))
-                this.y = end - 1 - this.height / 2;
+                this.y = end - 1 - this.height / 2 - 3;
             else
                 this.y += num;
         }
-        public void ChangeSize(int num, int width, int height)
+        public override void ChangeSize(int num, int width, int height)
         {
             if (Movable("left", -num, 0) && Movable("up", -num, 0) && Movable("right", num, width) && Movable("down", num, height) && this.width / 2 + num > 0 && this.height / 2 + num > 0)
             {
                 this.width += num;
                 this.height += num;
             }
-        }
-        public void SetColor(Color color)
-        {
-            if (Selected)
-                this.color = color;
         }
     }
 }

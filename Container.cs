@@ -12,7 +12,7 @@ namespace WinFormsApp1
 {
     class Container
     {
-        DoublyLinkedList<Shape> shapes = new DoublyLinkedList<Shape>();
+        DoublyLinkedList<ShapeParent> shapes = new DoublyLinkedList<ShapeParent>();
 
 
         bool CtrlCheckBoxChecked = false;
@@ -40,7 +40,7 @@ namespace WinFormsApp1
         {
             OverlayCheckBoxChecked = flag;
         }
-        public void InShapeContainer(int x, int y, Shape figure)
+        public void InShapeContainer(int x, int y, ShapeParent figure)
         {
             if (figure == null) return;
             
@@ -65,7 +65,7 @@ namespace WinFormsApp1
             }
             if (littleflag == false)
             {
-                Shape newshape = figure.DoConstruct();
+                ShapeParent newshape = figure.DoConstruct();
 
                 newshape.SetX(x);
                 newshape.SetY(y);
@@ -77,7 +77,7 @@ namespace WinFormsApp1
 
         public void Move(string s, int num, int end)
         {
-            foreach (Shape it in shapes)
+            foreach (ShapeParent it in shapes)
             {
                 if (it.GetSelect())
                 {
@@ -110,18 +110,18 @@ namespace WinFormsApp1
     //}
     public void ChangeSizeShapes(int num, int width, int height)
     {
-        foreach (Shape it in shapes)
+        foreach (ShapeParent it in shapes)
             if (it.GetSelect())
                 it.ChangeSize(num, width, height);
     }
 
     public void DrawShapes(PaintEventArgs e)
         {
-            foreach (Shape it in shapes)
+            foreach (ShapeParent it in shapes)
                 it.Draw(e);
         }
         public void SetShapesColor(Color color) {
-            foreach (Shape it in shapes)
+            foreach (ShapeParent it in shapes)
             {
                 if (it.GetSelect())
                 {
