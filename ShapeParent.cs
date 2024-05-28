@@ -10,7 +10,6 @@ namespace WindowsFormsApp1.Shapes
 {
     internal abstract class ShapeParent 
     {
-
         protected int x, y;
         protected bool Selected = false;
         protected Color color;
